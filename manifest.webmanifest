@@ -1,0 +1,10 @@
+{
+  "name": "UpSpeak — Learn English, Level Up!",
+  "short_name": "UpSpeak",
+  "description": "Plataforma web educativa interactiva y gamificada para aprender inglés desde A1 hasta C2.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#4f46e5",
+  "lang": "es"
+}

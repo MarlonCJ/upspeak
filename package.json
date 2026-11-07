@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node -e \"import('node:fs').then(fs => fs.cpSync('dist', '.', { recursive: true, force: true }))\"",
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest run",

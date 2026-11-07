@@ -1,22 +1,19 @@
 Options -Indexes
-DirectoryIndex index.html dist/index.html
+DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
-  # Bloquear acceso directo a archivos de código fuente y configuración
+  # Proteger código fuente y archivos de configuración en el hosting
   RewriteRule ^src/ - [F,L]
   RewriteRule ^(package(-lock)?\.json|tsconfig\.json|astro\.config\.mjs|tailwind\.config\.mjs|vitest\.config\.ts|ARCHITECTURE\.md)$ - [F,L]
 
-  # Si la petición es a la raíz o a un archivo compilado dentro de dist/, servirlo desde dist/
-  RewriteCond %{REQUEST_URI} !^/dist/
-  RewriteCond %{DOCUMENT_ROOT}/dist/%{REQUEST_URI} -f [OR]
-  RewriteCond %{DOCUMENT_ROOT}/dist/%{REQUEST_URI} -d
-  RewriteRule ^(.*)$ dist/$1 [L]
+  # Si el archivo o carpeta existe en la raíz (como index.html o _astro/), servirlo directamente
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
 
-  # SPA / Astro static fallback a dist/index.html
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ dist/index.html [L]
+  # Fallback a index.html
+  RewriteRule ^ index.html [L]
 </IfModule>
